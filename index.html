@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Trang Web Blog</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #f8f8f8;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        main {
+            background-color: #fff;
+            padding: 20px;
+            margin: 20px;
+        }
+
+        footer {
+            background-color: #f8f8f8;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f8f8;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .form-container input[type="text"],
+        .form-container input[type="email"],
+        .form-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form-container input[type="submit"] {
+            background-color: #ff99cc;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .form-container input[type="submit"]:hover {
+            background-color: #ff66a3;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Blog của tôi</h1>
+    </header>
+
+    <main>
+        <div class="form-container">
+            <h3>Gửi bình luận</h3>
+            <form id="form">
+                <input type="text" name="from_name" placeholder="Họ và tên" required id="from_name">
+                <input type="email" name="from_email" placeholder="Email" required id="from_email">
+                <textarea name="message" placeholder="Nội dung bình luận" required id="message"></textarea>
+                <input type="submit" id="button" value="Gửi">
+            </form>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>Blog của tôi &copy; 2023</p>
+    </footer>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        (function () {
+            emailjs.init('S3y4ylXEnsjSsFPv2')
+            const btn = document.getElementById('button');
+
+            document.getElementById('form')
+                .addEventListener('submit', function (event) {
+                    event.preventDefault();
+                    btn.value = 'Đang gửi...';
+                    const serviceID = 'service_5ig3ysd';
+                    const templateID = 'template_3hw5jqc';
+
+                    emailjs.sendForm(serviceID, templateID, this)
+                        .then(() => {
+                            btn.value = 'Đã gửi!';
+                            alert('Ok!');
+                        }, (err) => {
+                            btn.value = 'Send Email';
+                            alert(JSON.stringify(err));
+                        });
+                });
+        })();
+    </script>
+</body>
+
+</html>
